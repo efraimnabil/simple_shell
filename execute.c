@@ -31,13 +31,13 @@ void executeCommand(char *command)
 	{
 		if (execvp(argv[0], argv) == -1)
 		{
-			perror("Error");
+			perror("./shell");
 			exit(EXIT_FAILURE);
 		}
 	}
 	else if (pid < 0)
 	{
-		perror("Error");
+		perror("./shell");
 	}
 	else
 	{
