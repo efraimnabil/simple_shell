@@ -13,7 +13,6 @@ int main(void)
 	{
 		displayPrompt();
 		readCommand(&buf);
-		printf("%s\n", buf);
 		executeCommand(buf);
 	}
 	return (0);
