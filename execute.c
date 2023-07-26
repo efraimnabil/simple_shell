@@ -11,8 +11,8 @@ void executeCommand(char *command)
 	char *token;
 	char *argv[10];
 	unsigned int argIndex = 0;
-    unsigned int i;
-    
+	unsigned int i;
+
 	for (i = 0; i < 10; i++)
 	{
 		argv[i] = NULL;
