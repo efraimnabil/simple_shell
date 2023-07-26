@@ -10,6 +10,7 @@ void executeCommand(char *command)
 	int status;
 	char *token;
 	char *argv[10];
+	char *envp[1] = { NULL };
 	unsigned int argIndex = 0;
 	unsigned int i;
 
@@ -29,7 +30,7 @@ void executeCommand(char *command)
 	pid = fork();
 	if (pid == 0)
 	{
-		if (execvp(argv[0], argv) == -1)
+		if (execve(argv[0], argv, envp) == -1)
 		{
 			perror("./hsh");
 			exit(EXIT_FAILURE);
