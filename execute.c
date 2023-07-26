@@ -10,13 +10,13 @@ void executeCommand(char *command)
 	int status;
 	char *token;
 	char *argv[10];
-
-	for (int i = 0; i < 10; i++)
+	unsigned int argIndex = 0;
+    unsigned int i;
+    
+	for (i = 0; i < 10; i++)
 	{
 		argv[i] = NULL;
 	}
-
-	int argIndex = 0;
 
 	token = strtok(command, " \t\n");
 

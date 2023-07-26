@@ -8,14 +8,19 @@
  */
 size_t readCommand(char **command)
 {
-	size_t i = 0;
+	size_t bufsize = 0;
 
-	i = getline(command, &i, stdin);
-	if (i == -1)
-	{
-		printf("\n");
-		exit(1);
-	}
-	(*command)[i - 1] = '\0';
-	return (i);
+    if (getline(command, &bufsize, stdin) == -1)
+    {
+        if (feof(stdin))
+        {
+            exit(EXIT_SUCCESS);
+        }
+        else
+        {
+            perror("readCommand");
+            exit(EXIT_FAILURE);
+        }
+    }
+    return (bufsize);
 }
