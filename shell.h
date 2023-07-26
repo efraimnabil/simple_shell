@@ -5,8 +5,10 @@
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
+#include <sys/wait.h>
 
-void readCommand(char *command);
-void displayPrompt();
+size_t readCommand(char **);
+void displayPrompt(void);
+void executeCommand(char *);
 
 #endif
