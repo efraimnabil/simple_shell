@@ -5,5 +5,5 @@
  */
 void displayPrompt(void)
 {
-	printf("#cisfun$ ");
+	write(STDOUT_FILENO, "$ ", 2);
 }
