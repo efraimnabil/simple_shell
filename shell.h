@@ -3,12 +3,16 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
 #include <unistd.h>
+#include <sys/types.h>
 #include <sys/wait.h>
+#include <string.h>
 
-size_t readCommand(char **);
-void displayPrompt(void);
-void executeCommand(char *);
+#define BUFFER_SIZE 1024
 
-#endif
+void execute_command(char *command);
+void display_prompt(void);
+char *read_command(void);
+int is_interactive(void);
+
+#endif /* SHELL_H */

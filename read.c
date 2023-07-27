@@ -1,25 +1,26 @@
 #include "shell.h"
 
 /**
- * readCommand - Read a command from stdin.
- * @command: Buffer to store the command.
+ * read_command - Read a line of input from stdin.
  *
- * Return: Number of characters read.
+ * Return: A pointer to the buffer containing the input line,
+ *         or NULL if an error occurs or end of file is reached.
  */
-size_t readCommand(char **command)
+char *read_command(void)
 {
-	size_t bufsize = 0;
+	char buffer[BUFFER_SIZE];
+	char *input = fgets(buffer, BUFFER_SIZE, stdin);
 
-	if (getline(command, &bufsize, stdin) == -1)
+	if (input == NULL)
 	{
 		if (feof(stdin))
-		{
-			exit(EXIT_SUCCESS);
-		}
-		else
-		{
-			exit(EXIT_FAILURE);
-		}
+			return (NULL);
+
+		perror("Read error");
+		exit(EXIT_FAILURE);
 	}
-	return (bufsize);
+
+	buffer[strcspn(buffer, "\n")] = '\0';
+
+	return (buffer);
 }

@@ -1,9 +1,9 @@
 #include "shell.h"
 
 /**
- * displayPrompt - Print the prompt prefix.
+ * display_prompt - Displays the prompt for the simple shell.
  */
-void displayPrompt(void)
+void display_prompt(void)
 {
-	write(STDOUT_FILENO, "$ ", 2);
+	printf("#cisfun$ ");
 }

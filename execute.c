@@ -1,48 +1,44 @@
 #include "shell.h"
 
 /**
- * executeCommand - Executes the command.
- * @command: The command to be executed.
+ * execute_command - Executes the given command in a new process.
+ * @command: The command to execute.
  */
-void executeCommand(char *command)
+void execute_command(char *command)
 {
-	pid_t pid;
-	char *envp[1] = {NULL};
-	unsigned int argIndex = 0;
-	char *argv[100];
-	char *token = strtok(command, " \t\n");
-	unsigned int i;
+	char *argv[2] = {NULL, NULL};
+	int status;
+	pid_t pid = fork();
 
-	for (i = 0; i < 100; i++)
-		argv[i] = NULL;
+	if (pid == -1)
+	{
+		perror("Fork error");
+		exit(EXIT_FAILURE);
+	}
+	else if (pid == 0)
+	{
+		char *token = strtok(command, " ");
 
-	while (token != NULL)
-	{
-		argv[argIndex] = token;
-		argIndex++;
-		token = strtok(NULL, " \t\n");
-	}
-	if (argIndex > 1)
-	{
-		write(STDERR_FILENO, "/hshbb: No such file or directory\n", 34);
-		return;
-	}
-	argv[argIndex] = NULL;
-	pid = fork();
-	if (pid == 0)
-	{
-		if (execve(argv[0], argv, envp) == -1)
+		if (token != NULL)
 		{
-			perror("./hshd");
-			exit(EXIT_FAILURE);
+			argv[0] = token;
+			if (execve(argv[0], argv, NULL) == -1)
+			{
+				perror("Command not found");
+				exit(EXIT_FAILURE);
+			}
 		}
-	}
-	else if (pid < 0)
-	{
-		perror("./hshf");
+		else
+		{
+			exit(EXIT_SUCCESS);
+		}
 	}
 	else
 	{
-		wait(NULL);
+		if (wait(&status) == -1)
+		{
+			perror("Wait error");
+			exit(EXIT_FAILURE);
+		}
 	}
 }

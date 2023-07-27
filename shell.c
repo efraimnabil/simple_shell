@@ -1,22 +1,34 @@
 #include "shell.h"
 
 /**
- * main - Entry point of the program.
+ * main - Entry point of the shell program.
  *
- * Return: Always 0 (success).
+ * Return: Always 0.
  */
 int main(void)
 {
-	char *buf;
+	char *command;
 
-	while (1)
+	if (is_interactive())
 	{
-		if (isatty(STDIN_FILENO))
-			displayPrompt();
-		buf = NULL;
-		readCommand(&buf);
-		executeCommand(buf);
-		free(buf);
+		while (1)
+		{
+			display_prompt();
+			command = read_command();
+
+			if (command == NULL)
+				break;
+
+			execute_command(command);
+		}
 	}
+	else
+	{
+		while ((command = read_command()) != NULL)
+		{
+			execute_command(command);
+		}
+	}
+
 	return (0);
 }
