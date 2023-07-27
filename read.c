@@ -18,7 +18,6 @@ size_t readCommand(char **command)
 		}
 		else
 		{
-			perror("readCommand");
 			exit(EXIT_FAILURE);
 		}
 	}

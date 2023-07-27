@@ -11,9 +11,12 @@ int main(void)
 
 	while (1)
 	{
-		displayPrompt();
+		if (isatty(STDIN_FILENO))
+			displayPrompt();
+		buf = NULL;
 		readCommand(&buf);
 		executeCommand(buf);
+		free(buf);
 	}
 	return (0);
 }
